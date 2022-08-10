@@ -307,6 +307,7 @@ class _ShowcaseState extends State<Showcase> {
                   onLongPress: widget.onTargetLongPress,
                   shapeBorder: widget.shapeBorder,
                   showTopRightWidget: widget.showTopRightWidget,
+                  overlayPadding: widget.overlayPadding,
                 ),
               if (!_isScrollRunning)
                 ToolTipWidget(
@@ -343,6 +344,7 @@ class _TargetWidget extends StatelessWidget {
   final ShapeBorder? shapeBorder;
   final BorderRadius? radius;
   final bool showTopRightWidget;
+  final EdgeInsets overlayPadding;
 
   const _TargetWidget({
     Key? key,
@@ -354,6 +356,7 @@ class _TargetWidget extends StatelessWidget {
     this.onDoubleTap,
     this.onLongPress,
     required this.showTopRightWidget,
+    required this.overlayPadding,
   }) : super(key: key);
 
   @override
@@ -367,8 +370,12 @@ class _TargetWidget extends StatelessWidget {
           children: [
             if (showTopRightWidget)
               Transform.translate(
-                offset: Offset(size!.width, 0),
-                child: const DotWidget(),
+                // 5 is dot widget height / 2 & width / 2
+                offset: Offset(size!.width + 5, -size!.height - 5),
+                child: Padding(
+                  padding: overlayPadding,
+                  child: const DotWidget(),
+                ),
               ),
             GestureDetector(
               onTap: onTap,

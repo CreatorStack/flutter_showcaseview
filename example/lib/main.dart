@@ -180,6 +180,7 @@ class _MailPageState extends State<MailPage> {
                                   children: <Widget>[
                                     Showcase(
                                       showTopRightWidget: true,
+                                      overlayPadding: const EdgeInsets.all(16),
                                       key: _one,
                                       description: 'Tap to see menu options',
                                       child: Icon(
@@ -213,7 +214,7 @@ class _MailPageState extends State<MailPage> {
                     ),
                     Showcase(
                       showTopRightWidget: true,
-                      overlayPadding: const EdgeInsets.all(5),
+                      overlayPadding: const EdgeInsets.all(16),
                       key: _two,
                       title: 'Profile',
                       description:
@@ -272,6 +273,7 @@ class _MailPageState extends State<MailPage> {
         ),
       ),
       floatingActionButton: Showcase(
+        overlayPadding: const EdgeInsets.all(16),
         showTopRightWidget: true,
         key: _five,
         title: 'Compose Mail',
@@ -310,6 +312,7 @@ class _MailPageState extends State<MailPage> {
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Showcase(
           showTopRightWidget: true,
+          overlayPadding: const EdgeInsets.all(16),
           key: key,
           description: 'Tap to check mail',
           disposeOnTap: true,
