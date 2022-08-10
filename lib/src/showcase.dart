@@ -370,12 +370,12 @@ class _TargetWidget extends StatelessWidget {
           children: [
             if (showTopRightWidget)
               Transform.translate(
-                // 5 is dot widget height / 2 & width / 2
-                offset: Offset(size!.width + 5, -size!.height - 5),
-                child: Padding(
-                  padding: overlayPadding,
-                  child: const DotWidget(),
+                // 5 is dot widget height / 4 & width / 4
+                offset: Offset(
+                  size!.width + overlayPadding.left - 5,
+                  -overlayPadding.bottom + 5,
                 ),
+                child: const DotWidget(),
               ),
             GestureDetector(
               onTap: onTap,

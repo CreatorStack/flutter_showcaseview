@@ -178,11 +178,24 @@ class _MailPageState extends State<MailPage> {
                               Expanded(
                                 child: Row(
                                   children: <Widget>[
-                                    Showcase(
-                                      showTopRightWidget: true,
-                                      overlayPadding: const EdgeInsets.all(16),
+                                    Showcase.withWidget(
+                                      // height: size.height,
+                                      // width: size.width * 0.88,
+                                      // container: getShowcaseWidgetContainer(size),
+                                      height: 120,
+                                      width: 120,
+                                      container: const SizedBox(height: 120, width: 120),
+                                      overlayOpacity: 0.5,
+                                      disableAnimation: true,
+                                      overlayPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                                      overlayColor: Colors.black,
+                                      radius: BorderRadius.circular(false ? 100 : 20),
                                       key: _one,
-                                      description: 'Tap to see menu options',
+                                      showcaseBackgroundColor: Colors.blue,
+                                      textColor: Colors.white,
+                                      shapeBorder: false ? const CircleBorder() : const RoundedRectangleBorder(),
+                                      disableAutoScrollInView: true,
+                                      showTopRightWidget: true,
                                       child: Icon(
                                         Icons.menu,
                                         color: Theme.of(context).primaryColor,
