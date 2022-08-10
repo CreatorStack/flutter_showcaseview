@@ -25,6 +25,7 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'dot_widget.dart';
 
 import 'extension.dart';
 import 'get_position.dart';
@@ -63,6 +64,7 @@ class Showcase extends StatefulWidget {
   final EdgeInsets overlayPadding;
   final VoidCallback? onTargetDoubleTap;
   final VoidCallback? onTargetLongPress;
+  final bool showTopRightWidget;
 
   /// Defines blur value.
   /// This will blur the background while displaying showcase.
@@ -98,6 +100,7 @@ class Showcase extends StatefulWidget {
     this.radius,
     this.onTargetLongPress,
     this.onTargetDoubleTap,
+    this.showTopRightWidget = false,
   })  : height = null,
         width = null,
         container = null,
@@ -134,6 +137,7 @@ class Showcase extends StatefulWidget {
     this.blurValue,
     this.onTargetLongPress,
     this.onTargetDoubleTap,
+    this.showTopRightWidget = false,
   })  : showArrow = false,
         onToolTipClick = null,
         assert(overlayOpacity >= 0.0 && overlayOpacity <= 1.0, "overlay opacity must be between 0 and 1.");
@@ -302,6 +306,7 @@ class _ShowcaseState extends State<Showcase> {
                   onDoubleTap: widget.onTargetDoubleTap,
                   onLongPress: widget.onTargetLongPress,
                   shapeBorder: widget.shapeBorder,
+                  showTopRightWidget: widget.showTopRightWidget,
                 ),
               if (!_isScrollRunning)
                 ToolTipWidget(
@@ -337,6 +342,7 @@ class _TargetWidget extends StatelessWidget {
   final VoidCallback? onLongPress;
   final ShapeBorder? shapeBorder;
   final BorderRadius? radius;
+  final bool showTopRightWidget;
 
   const _TargetWidget({
     Key? key,
@@ -347,6 +353,7 @@ class _TargetWidget extends StatelessWidget {
     this.radius,
     this.onDoubleTap,
     this.onLongPress,
+    required this.showTopRightWidget,
   }) : super(key: key);
 
   @override
@@ -356,24 +363,33 @@ class _TargetWidget extends StatelessWidget {
       left: offset.dx,
       child: FractionalTranslation(
         translation: const Offset(-0.5, -0.5),
-        child: GestureDetector(
-          onTap: onTap,
-          onLongPress: onLongPress,
-          onDoubleTap: onDoubleTap,
-          child: Container(
-            height: size!.height + 16,
-            width: size!.width + 16,
-            decoration: ShapeDecoration(
-              shape: radius != null
-                  ? RoundedRectangleBorder(borderRadius: radius!)
-                  : shapeBorder ??
-                      const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(8),
-                        ),
-                      ),
+        child: Stack(
+          children: [
+            if (showTopRightWidget)
+              Transform.translate(
+                offset: Offset(size!.width, 0),
+                child: const DotWidget(),
+              ),
+            GestureDetector(
+              onTap: onTap,
+              onLongPress: onLongPress,
+              onDoubleTap: onDoubleTap,
+              child: Container(
+                height: size!.height + 16,
+                width: size!.width + 16,
+                decoration: ShapeDecoration(
+                  shape: radius != null
+                      ? RoundedRectangleBorder(borderRadius: radius!)
+                      : shapeBorder ??
+                          const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(8),
+                            ),
+                          ),
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
