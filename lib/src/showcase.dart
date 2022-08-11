@@ -25,7 +25,6 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dot_widget.dart';
 
 import 'extension.dart';
 import 'get_position.dart';
@@ -64,7 +63,7 @@ class Showcase extends StatefulWidget {
   final EdgeInsets overlayPadding;
   final VoidCallback? onTargetDoubleTap;
   final VoidCallback? onTargetLongPress;
-  final bool showTopRightWidget;
+  final Widget Function(Size, EdgeInsets)? widgetOnHighlight;
 
   /// Defines blur value.
   /// This will blur the background while displaying showcase.
@@ -100,7 +99,7 @@ class Showcase extends StatefulWidget {
     this.radius,
     this.onTargetLongPress,
     this.onTargetDoubleTap,
-    this.showTopRightWidget = false,
+    this.widgetOnHighlight,
   })  : height = null,
         width = null,
         container = null,
@@ -137,7 +136,7 @@ class Showcase extends StatefulWidget {
     this.blurValue,
     this.onTargetLongPress,
     this.onTargetDoubleTap,
-    this.showTopRightWidget = false,
+    this.widgetOnHighlight,
   })  : showArrow = false,
         onToolTipClick = null,
         assert(overlayOpacity >= 0.0 && overlayOpacity <= 1.0, "overlay opacity must be between 0 and 1.");
@@ -306,7 +305,7 @@ class _ShowcaseState extends State<Showcase> {
                   onDoubleTap: widget.onTargetDoubleTap,
                   onLongPress: widget.onTargetLongPress,
                   shapeBorder: widget.shapeBorder,
-                  showTopRightWidget: widget.showTopRightWidget,
+                  widgetOnHighlight: widget.widgetOnHighlight,
                   overlayPadding: widget.overlayPadding,
                   rectBound: rectBound,
                 ),
@@ -344,7 +343,7 @@ class _TargetWidget extends StatelessWidget {
   final VoidCallback? onLongPress;
   final ShapeBorder? shapeBorder;
   final BorderRadius? radius;
-  final bool showTopRightWidget;
+  final Widget Function(Size, EdgeInsets)? widgetOnHighlight;
   final EdgeInsets overlayPadding;
   final Rect rectBound;
 
@@ -357,7 +356,7 @@ class _TargetWidget extends StatelessWidget {
     this.radius,
     this.onDoubleTap,
     this.onLongPress,
-    required this.showTopRightWidget,
+    required this.widgetOnHighlight,
     required this.overlayPadding,
     required this.rectBound,
   }) : super(key: key);
@@ -368,18 +367,19 @@ class _TargetWidget extends StatelessWidget {
       top: offset.dy,
       left: offset.dx,
       child: Stack(
+        alignment: Alignment.center,
         children: [
-          if (showTopRightWidget)
-            Transform.translate(
-              offset: Offset(
-                (rectBound.right / 2 + overlayPadding.right - 8),
-                -(rectBound.top / 2 + overlayPadding.top - 8),
-              ),
-              child: const FractionalTranslation(
-                translation: Offset(-0.5, 0.5),
-                child: DotWidget(),
-              ),
-            ),
+          if (widgetOnHighlight != null) widgetOnHighlight!(rectBound.size, overlayPadding),
+          // Transform.translate(
+          //   offset: Offset(
+          //     (rectBound.right / 2 + overlayPadding.right - 8),
+          //     -(rectBound.top / 2 + overlayPadding.top - 8),
+          //   ),
+          //   child: const FractionalTranslation(
+          //     translation: Offset(-0.5, 0.5),
+          //     child: DotWidget(),
+          //   ),
+          // ),
           FractionalTranslation(
             translation: const Offset(-0.5, -0.5),
             child: GestureDetector(

@@ -195,7 +195,7 @@ class _MailPageState extends State<MailPage> {
                                       textColor: Colors.white,
                                       shapeBorder: false ? const CircleBorder() : const RoundedRectangleBorder(),
                                       disableAutoScrollInView: true,
-                                      showTopRightWidget: true,
+
                                       child: Icon(
                                         Icons.menu,
                                         color: Theme.of(context).primaryColor,
@@ -226,7 +226,6 @@ class _MailPageState extends State<MailPage> {
                       ),
                     ),
                     Showcase(
-                      showTopRightWidget: true,
                       overlayPadding: const EdgeInsets.all(16),
                       key: _two,
                       title: 'Profile',
@@ -287,7 +286,6 @@ class _MailPageState extends State<MailPage> {
       ),
       floatingActionButton: Showcase(
         overlayPadding: const EdgeInsets.all(16),
-        showTopRightWidget: true,
         key: _five,
         title: 'Compose Mail',
         description: 'Click here to compose mail',
@@ -324,7 +322,6 @@ class _MailPageState extends State<MailPage> {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Showcase(
-          showTopRightWidget: true,
           overlayPadding: const EdgeInsets.all(16),
           key: key,
           description: 'Tap to check mail',
