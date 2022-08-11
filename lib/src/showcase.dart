@@ -364,20 +364,19 @@ class _TargetWidget extends StatelessWidget {
     return Positioned(
       top: offset.dy,
       left: offset.dx,
-      child: FractionalTranslation(
-        translation: const Offset(-0.5, -0.5),
-        child: Stack(
-          children: [
-            if (showTopRightWidget)
-              Transform.translate(
-                // 5 is dot widget height / 4 & width / 4
-                offset: Offset(
-                  size!.width + overlayPadding.left - 5,
-                  -overlayPadding.bottom + 5,
-                ),
-                child: const DotWidget(),
+      child: Stack(
+        children: [
+          if (showTopRightWidget)
+            Transform.translate(
+              offset: Offset(size!.width, -(size!.height + 16)),
+              child: const FractionalTranslation(
+                translation: Offset(-0.5, 0.5),
+                child: DotWidget(),
               ),
-            GestureDetector(
+            ),
+          FractionalTranslation(
+            translation: const Offset(-0.5, -0.5),
+            child: GestureDetector(
               onTap: onTap,
               onLongPress: onLongPress,
               onDoubleTap: onDoubleTap,
@@ -396,8 +395,8 @@ class _TargetWidget extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
