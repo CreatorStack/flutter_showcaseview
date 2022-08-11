@@ -187,7 +187,7 @@ class _MailPageState extends State<MailPage> {
                                       container: const SizedBox(height: 120, width: 120),
                                       overlayOpacity: 0.5,
                                       disableAnimation: true,
-                                      overlayPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                                      overlayPadding: const EdgeInsets.symmetric(horizontal: 120, vertical: 60),
                                       overlayColor: Colors.black,
                                       radius: BorderRadius.circular(false ? 100 : 20),
                                       key: _one,

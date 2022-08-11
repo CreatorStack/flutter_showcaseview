@@ -372,8 +372,8 @@ class _TargetWidget extends StatelessWidget {
           if (showTopRightWidget)
             Transform.translate(
               offset: Offset(
-                (rectBound.right + overlayPadding.right) / 2,
-                -(rectBound.top + overlayPadding.top) / 2,
+                (rectBound.right / 2 + overlayPadding.right - 8),
+                -(rectBound.top / 2 + overlayPadding.top - 8),
               ),
               child: const FractionalTranslation(
                 translation: Offset(-0.5, 0.5),
