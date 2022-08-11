@@ -308,6 +308,7 @@ class _ShowcaseState extends State<Showcase> {
                   shapeBorder: widget.shapeBorder,
                   showTopRightWidget: widget.showTopRightWidget,
                   overlayPadding: widget.overlayPadding,
+                  rectBound: rectBound,
                 ),
               if (!_isScrollRunning)
                 ToolTipWidget(
@@ -345,6 +346,7 @@ class _TargetWidget extends StatelessWidget {
   final BorderRadius? radius;
   final bool showTopRightWidget;
   final EdgeInsets overlayPadding;
+  final Rect rectBound;
 
   const _TargetWidget({
     Key? key,
@@ -357,6 +359,7 @@ class _TargetWidget extends StatelessWidget {
     this.onLongPress,
     required this.showTopRightWidget,
     required this.overlayPadding,
+    required this.rectBound,
   }) : super(key: key);
 
   @override
@@ -368,7 +371,10 @@ class _TargetWidget extends StatelessWidget {
         children: [
           if (showTopRightWidget)
             Transform.translate(
-              offset: Offset(size!.width, -(size!.height + 16)),
+              offset: Offset(
+                (rectBound.right + overlayPadding.right) / 2,
+                -(rectBound.top + overlayPadding.top) / 2,
+              ),
               child: const FractionalTranslation(
                 translation: Offset(-0.5, 0.5),
                 child: DotWidget(),
