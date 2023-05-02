@@ -164,13 +164,17 @@ class _OverlayBuilderState extends State<OverlayBuilder> {
   void addToOverlay(OverlayEntry overlayEntry) async {
     if (mounted) {
       final showCaseContext = ShowCaseWidget.of(context).context;
-      // if (Overlay.maybeOf(showCaseContext) != null) {
       // ignore: invalid_null_aware_operator
-      Overlay.of(showCaseContext)?.insert(overlayEntry);
-      // } else if (Overlay.maybeOf(context) != null) {
-      // ignore: invalid_null_aware_operator
-      Overlay.of(context)?.insert(overlayEntry);
-      // }
+      if (Overlay.of(showCaseContext) != null) {
+        // ignore: invalid_null_aware_operator
+        Overlay.of(showCaseContext)?.insert(overlayEntry);
+        // ignore: invalid_null_aware_operator
+      } else if (Overlay.of(context) != null) {
+        // ignore: invalid_null_aware_operator
+        Overlay.of(context)?.insert(overlayEntry);
+      } else {
+        //
+      }
     }
   }
 
